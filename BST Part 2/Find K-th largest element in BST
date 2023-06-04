@@ -1,0 +1,24 @@
+// return the Kth largest element in the given BST rooted at 'root'
+class Solution
+{
+    public:
+    vector<int>v;
+    vector<int>inorder(Node*root)
+    {
+       if(root==NULL)
+       {
+           return v;
+       }
+       inorder(root->left);
+        v.push_back(root->data);
+        inorder(root->right);
+        
+        return v;
+    }
+    int kthLargest(Node *root, int K)
+    {
+      vector<int>p=inorder(root);
+      int n=p.size();
+      return p[n-K];
+    }
+};
