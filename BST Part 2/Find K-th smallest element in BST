@@ -1,0 +1,67 @@
+
+//TC-O(N) SC-O(1)
+class Solution {
+public:
+    int inorder(TreeNode* root, int& count, int k) {
+        if (root == nullptr) {
+            return -1;
+        }
+       
+        int left = inorder(root->left, count, k);
+        if (left != -1) {
+            return left;
+        }
+        
+        count++;
+        if (count == k) {
+            return root->val;
+        }
+        
+        return inorder(root->right, count, k);
+    }
+    
+    int kthSmallest(TreeNode* root, int k) {
+        int count = 0;
+        return inorder(root, count, k);
+    }
+};
+
+
+//TC-O(N) SC-O(N)->extra space due to vector container
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+     vector<int>v;
+    vector<int>inorder(TreeNode*root)
+    {
+       if(root==NULL)
+       {
+           return v;
+       }
+       inorder(root->left);
+        v.push_back(root->val);
+        inorder(root->right);
+        
+        return v;
+    }
+    
+    int kthSmallest(TreeNode* root, int k) {
+        
+        vector<int>p=inorder(root);
+        int n=p.size();
+        return p[k-1];
+    }
+};
+
+
