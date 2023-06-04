@@ -1,0 +1,34 @@
+class Node {
+public:
+    int maxnode;
+    int minnode;
+    int size;
+    
+    Node(int maxn, int minn, int sz) {
+        maxnode = maxn;
+        minnode = minn;
+        size = sz;
+    }
+};
+
+class Solution {
+public:
+    Node LBST(TreeNode<int>* root) {
+        if (!root) {
+            return Node(INT_MIN, INT_MAX, 0);
+        }
+        
+        Node left = LBST(root->left);
+        Node right = LBST(root->right);
+        
+        if (left.maxnode < root->data && root->data < right.minnode) {
+            return Node(max(right.maxnode, root->data), min(left.minnode, root->data), (left.size + right.size + 1));
+        }
+        
+        return Node(INT_MAX, INT_MIN, max(left.size, right.size));
+    }
+};
+
+int largestBST(TreeNode<int>* root) {
+    return Solution().LBST(root).size;
+}
