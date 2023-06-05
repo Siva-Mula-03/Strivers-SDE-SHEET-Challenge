@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+//TC-O(N) SC-O(N)
+int findDuplicate(vector<int> &arr, int n){
+	unordered_map<int,int>mp;
+	for(auto i:arr)
+	{
+		mp[i]++;
+	}
+	for(auto j:mp)
+	{
+		if(j.second>1)
+		{
+			return j.first;
+			break;
+		}
+	}
+	return -1;
+}
+
+//TC-O(N) SC-O(1)
+int findDuplicate(vector<int> &arr, int n){
+	unordered_set<int>sp;
+
+	for(int i=0;i<arr.size();i++)
+	{
+          if (!sp.insert(arr[i]).second) {
+            return arr[i];
+            break;
+          }
+        }
+        return -1;
+}
