@@ -1,0 +1,128 @@
+#include<bits/stdc++.h>
+#include<iostream>
+using namespace std;
+
+#define MAX_SIZE 5
+int arr[MAX_SIZE];
+int top=-1;
+
+void push(int k)
+{
+	if(top==MAX_SIZE-1)
+	{
+		cout<<"Stack overflow"<<endl;
+	}
+	else
+	{
+		top++;
+		arr[top]=k;
+	}
+}
+
+void pop()
+{
+	int temp;
+	if(top==-1)
+	{
+		cout<<"Stack underflow"<<endl;
+     
+	}
+	else
+	{
+		temp=arr[top];
+		top--;
+		cout<<temp<<endl;
+		
+	}
+}
+
+int peek()
+{
+	return arr[top];
+}
+
+int size()
+{
+    return top+1;
+}
+
+
+bool isempty()
+{
+	if(top==-1)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool isfull()
+{
+	if(top==MAX_SIZE-1)
+	{
+		return false;
+	}
+	return true;
+}
+void print()
+{
+		cout<<"Elements of the Stack are:"<<endl;
+		int i;
+	for(i=top;i>=0;i--)
+	{
+		cout<<arr[i]<<endl;
+	}
+}
+int main()
+{
+	cout<<"Stack Operations:"<<endl;
+	cout<<"Following Stack Operations are available!"<<endl;
+	cout<<"1.Push an element onto the stack"<<endl;
+	cout<<"2.Pop an element from the stack"<<endl;
+	cout<<"3.Check whether stack is empty or not"<<endl;
+	cout<<"4.Check whether stack is Full or not"<<endl;
+	cout<<"5.Display the top element on stack"<<endl;
+	cout<<"6.Display all the elements on the stack"<<endl;
+    cout<<"7.Get_Size of Stack"<<endl;
+	cout<<"8..Exit"<<endl;
+	int choice;
+
+
+	
+	while(true)
+	{
+	    cout<<"Enter your choice:"<<endl;
+	    cin>>choice;
+		switch(choice)
+		{
+			case 1:
+				cout<<"Enter an element to be pushed"<<endl;
+				int ele;
+				cin>>ele;
+				push(ele);
+				break;
+			case 2:
+				pop();
+				break;
+		    case 3:
+		    	cout<<isempty()<<endl;
+		    	break;
+		    case 4:
+		    	cout<<isfull()<<endl;
+		    	break;
+		    case 5:
+		    	cout<<peek()<<endl;
+		    	break;
+		    case 6:
+		    	print();
+		    	break;
+		    case 7:
+		    	cout<<size()<<endl;
+		    	break;
+		   default:
+		       cout<<"Invalid choice"<<endl;
+		       exit(1);
+		        break;
+		}
+	}
+}
