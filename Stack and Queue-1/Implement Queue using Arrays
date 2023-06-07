@@ -1,0 +1,134 @@
+#include <iostream>
+using namespace std;
+
+#define MAX_SIZE 5
+
+int queue[MAX_SIZE];
+int front = -1;
+int rear = -1;
+
+bool isEmpty() {
+    if (front == -1 && rear == -1) {
+        return true;
+    }
+    return false;
+}
+
+bool isFull() {
+    if ((rear + 1) % MAX_SIZE == front) {
+        return true;
+    }
+    return false;
+}
+
+void enqueue(int element) {
+    if (isFull()) {
+        cout << "Queue is full. Cannot enqueue." << endl;
+        return;
+    } else if (isEmpty()) {
+        front = rear = 0;
+    } else {
+        rear = (rear + 1) % MAX_SIZE;
+    }
+    queue[rear] = element;
+    cout << "Element enqueued: " << element << endl;
+}
+
+void dequeue() {
+    if (isEmpty()) {
+        cout << "Queue is empty. Cannot dequeue." << endl;
+        return;
+    } else if (front == rear) {
+        cout << "Dequeued element: " << queue[front] << endl;
+        front = rear = -1;
+    } else {
+        cout << "Dequeued element: " << queue[front] << endl;
+        front = (front + 1) % MAX_SIZE;
+    }
+}
+
+int getFront() {
+    if (isEmpty()) {
+        cout << "Queue is empty." << endl;
+        return -1; // Or any other appropriate value
+    }
+    return queue[front];
+}
+
+int size() {
+    if (isEmpty()) {
+        return 0;
+    } else if (rear >= front) {
+        return rear - front + 1;
+    } else {
+        return MAX_SIZE - front + rear + 1;
+    }
+}
+
+void print() {
+    if (isEmpty()) {
+        cout << "Queue is empty." << endl;
+        return;
+    }
+    
+    cout << "Elements in the queue: ";
+    int i = front;
+    while (i != rear) {
+        cout << queue[i] << " ";
+        i = (i + 1) % MAX_SIZE;
+    }
+    cout << queue[rear] << endl;
+}
+
+int main() {
+    cout << "Queue Operations:" << endl;
+    cout << "Following Queue Operations are available!" << endl;
+    cout << "1. Enqueue an element" << endl;
+    cout << "2. Dequeue an element" << endl;
+    cout << "3. Check whether queue is empty or not" << endl;
+    cout << "4. Check whether queue is full or not" << endl;
+    cout << "5. Get the front element" << endl;
+    cout << "6. Get the size of the queue" << endl;
+    cout << "7. Display all the elements in the queue" << endl;
+    cout << "8. Exit" << endl;
+
+    int choice;
+
+    while (true) {
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter an element to be enqueued: ";
+                int element;
+                cin >> element;
+                enqueue(element);
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                cout << "Is queue empty? " << (isEmpty() ? "Yes" : "No") << endl;
+                break;
+            case 4:
+                cout << "Is queue full? " << (isFull() ? "Yes" : "No") << endl;
+                break;
+            case 5:
+                cout << "Front element is: " << getFront() << endl;
+                break;
+            case 6:
+                cout << "Size of the queue is: " << size() << endl;
+                break;
+            case 7:
+                print();
+                break;
+            default:
+                cout << "Invalid choice" << endl;
+                exit(1);
+                break;
+        }
+    }
+
+    return 0;
+}
