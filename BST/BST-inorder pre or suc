@@ -1,0 +1,39 @@
+class Solution
+{
+    public:
+    void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+    {
+      if(root==NULL)
+      {
+          return ;
+      }
+      findPreSuc(root->left,pre,suc,key);
+      if(root->key > key && suc == NULL )
+         suc=root;
+      if(root->key<key)
+         pre=root;
+      findPreSuc(root->right,pre,suc,key);
+      
+    }
+ <------------------------------------------------------------------------------------>
+ class Solution
+{
+public:
+    TreeNode* inorderSuccessor(TreeNode*root,TreeNode*p)
+    {
+        TreeNode*successor=NULL;
+        while(root!=NULL)
+        {
+        if(root->val<p->val)
+        {
+            root=root->right;
+        }
+        else
+        {
+           successsor=root;
+           root=root->left;
+        }
+    }
+    return successor;
+    }
+};
