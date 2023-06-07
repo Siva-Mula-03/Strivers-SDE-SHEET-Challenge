@@ -1,0 +1,64 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+
+  //TC-O(N) SC-O(N)
+    vector<int>ans;
+    vector<int>inorder(TreeNode*root)
+    {
+        if(root==NULL)
+        {
+            return ans;
+        }
+        inorder(root->left);
+        ans.push_back(root->val);
+        inorder(root->right);
+        return ans;
+    }
+    bool isValidBST(TreeNode* root) {
+        vector<int>p=inorder(root);
+        for(int i=0;i+1<p.size();i++)
+        {
+            if(p[i]>=p[i+1])
+            {
+                return false;
+                break;
+            }
+        }
+        return true;
+    }
+    <---------------------------------------------------------------------------------------------------------------------->
+    //TC-O(N) SC-O(1)
+    bool helper(TreeNode*root,TreeNode*minnode,TreeNode*maxnode)
+    {
+        if(root==NULL)
+        {
+            return true;
+        }
+        else 
+        {
+            if(minnode!=NULL && root->val<=minnode->val || maxnode!=NULL && root->val>=maxnode->val)
+            {
+                return false;
+            }
+        }
+        
+    return helper(root->left,minnode,root)&&helper(root->right,root,maxnode);
+        
+
+    }
+    bool isValidBST(TreeNode* root) {
+
+         return helper(root,NULL,NULL);
+}
+};
