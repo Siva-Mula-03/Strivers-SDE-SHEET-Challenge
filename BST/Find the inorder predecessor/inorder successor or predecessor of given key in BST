@@ -1,0 +1,43 @@
+class Solution
+{
+public:
+    TreeNode* inorderSuccessor(TreeNode*root,TreeNode*p)
+    {
+        TreeNode*successor=NULL;
+        while(root!=NULL)
+        {
+        if(root->val<p->val)
+        {
+            root=root->right;
+        }
+        else
+        {
+           successsor=root;
+           root=root->left;
+        }
+    }
+    return successor;
+    }
+};
+
+class Solution
+{
+public:
+    TreeNode* inorderPredecessor(TreeNode*root,TreeNode*p)
+    {
+        TreeNode*Predecessor=NULL;
+        while(root!=NULL)
+        {
+        if(root->val<p->val)
+        {
+          Predecessor=root; 
+         root=root->right;
+        }
+        else
+        {
+           root=root->left;
+        }
+    }
+    return successor;
+    }
+};
