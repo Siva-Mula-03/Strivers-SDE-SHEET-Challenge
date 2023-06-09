@@ -1,0 +1,36 @@
+
+//Leetcode
+class Solution {
+public:
+       string reverseWords(string s) {
+        stringstream str(s);
+           
+           string word;
+           string res="";
+           while(str>>word)
+           {
+               res=word+" "+res;
+           }
+           res.pop_back();
+           
+           return res;
+       }
+    };
+    
+    //CodeStudio
+    
+#include <sstream>
+string reverseString(string &str){
+	// Write your code here.	
+	std::stringstream s(str);
+	string word;
+	string res="";
+
+	while(s>>word)
+	{
+		res=word+" "+res;
+	}
+	res.pop_back();
+
+	return res;
+}
