@@ -1,0 +1,48 @@
+#include <numeric>
+#include <vector>
+#include <algorithm>
+
+bool isAllocPossible(const std::vector<int>& A, int barrier, int B) {
+    int pages = 0;
+    int allocatedStudents = 1;
+
+    for (int i = 0; i < A.size(); i++) {
+        if (A[i] > barrier)
+            return false;
+
+        if (A[i] + pages > barrier) {
+            allocatedStudents += 1;
+            pages = A[i];
+        } else {
+            pages += A[i];
+        }
+    }
+
+    return allocatedStudents <= B;
+}
+
+
+int Solution::books(std::vector<int>& A, int B) {
+    int n = A.size();
+    if (n < B) {
+        return -1; // Not enough books to allocate to all students
+    }
+
+    int low = *std::max_element(A.begin(), A.end());
+    int high = std::accumulate(A.begin(), A.end(), 0);
+    int res = -1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (isAllocPossible(A, mid, B)) {
+            res = mid;
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+
+    return res;
+}
+
