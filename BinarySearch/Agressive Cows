@@ -1,0 +1,34 @@
+bool canplace(vector<int>& s, int n, int k, int dist) {
+    int count = 1;
+    int cord = s[0];
+
+    for (int i = 1; i < n; i++) {
+        if (s[i] - cord >= dist) {
+            count++;
+            cord = s[i];
+        }
+    }
+
+    return count >= k;
+}
+
+int aggressiveCows(vector<int>& s, int k) {
+    sort(s.begin(), s.end());
+    int n = s.size();
+    int low = 1;
+    int high = s[n - 1] - s[0];
+    int res = -1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (canplace(s, n, k, mid)) {
+            res = mid;
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    return res;
+}
