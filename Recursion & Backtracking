@@ -1,0 +1,25 @@
+class Solution {
+public:
+    
+    void generateper(int index,vector<int>&nums,vector<vector<int>>&v)
+    {
+        if(index==nums.size())
+        {
+            v.push_back(nums);
+            return ;
+        }
+        
+        for(int i=index;i<nums.size();i++)
+        {
+            swap(nums[index],nums[i]);
+            generateper(index+1,nums,v);
+            swap(nums[index],nums[i]);
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>>v;
+        generateper(0,nums,v);
+        
+        return v;
+    }
+};
